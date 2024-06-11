@@ -1,12 +1,18 @@
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import {Slot, Link, router} from 'expo-router'
+import {Slot, Link, router, Redirect} from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {images} from  '../constants'
 import CustomButton from '../components/CustomButton';
+import { useGlobalContext } from '../context/GlobalProvider';
 
 export default function App() {
+  const {isLoading, isLoggedIn} = useGlobalContext()
+
+  if (!isLoading && isLoggedIn) return <Redirect href="/home" />
+
+
   return (
     // <View className="flex-1 items-center justify-center bg-white">
     //     <Text className="text-3xl font-pblack">RootLayout</Text>

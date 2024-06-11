@@ -3,6 +3,7 @@ import {useFonts} from 'expo-font'
 import { useEffect } from 'react';
 import { Text, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import GlobalProvide from '../context/GlobalProvider'
 
 
 SplashScreen.preventAutoHideAsync(); 
@@ -43,13 +44,14 @@ const RootLayout = () => {
         //     <Stack.Screen name='index' options={{header:false}}> </Stack.Screen>
         //     <Stack.Screen name='search/[query]' options={{header:false}}> </Stack.Screen>
         // </Stack>
+        <GlobalProvide>
         <Stack> 
             <Stack.Screen name="index" options={{headerShown:false }} />
             <Stack.Screen name="(auth)" options={{headerShown:false }} />
             <Stack.Screen name="(tabs)" options={{headerShown:false }} />
             {/* <Stack.Screen name="/search/[query]" options={{headerShown:false }} /> */}
         </Stack>
-        // <RootLayout></ RootLayout>
+        </GlobalProvide>
     )
 }
 
