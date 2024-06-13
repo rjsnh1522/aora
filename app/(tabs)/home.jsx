@@ -6,12 +6,14 @@ import { images } from '../../constants'
 import SearchInput from '../../components/SearchInput'
 import Trending from '../../components/Trending'
 import EmptyState from '../../components/EmptyState'
-import { getAllPosts } from '../../lib/appwrite'
+import { getAllPosts, getLatestPosts } from '../../lib/appwrite'
 import useAppWrite from '../../lib/useAppwrite'
+import VideoCard from '../../components/VideoCard'
 
 const Home = () => {
 
   const { data: posts, refetch } = useAppWrite(getAllPosts);
+  const { data: latestPosts } = useAppWrite(getLatestPosts);
 
   const [refreshing, setRefreshing] = useState(false)
 
@@ -23,7 +25,6 @@ const Home = () => {
     setRefreshing(false);
   }
 
-  console.log(posts)
 
   return (
     <SafeAreaView className="bg-primary h-full">
@@ -31,7 +32,7 @@ const Home = () => {
         data={posts}
         keyExtractor={(item) => item.$id}
         renderItem={({item}) => (
-          <Text className="text-3xl text-white"> {item.title}</Text>
+          <VideoCard video={item}/>
         )}
         ListHeaderComponent={() => (
           <View className="y-6 px-4 space-y-6">
@@ -49,7 +50,7 @@ const Home = () => {
                 <Text className="text-gray-100 mb-3">
 
                 </Text>
-                <Trending posts={[{id:1}, {id:2}, {id:3}] ?? [] }/>
+                <Trending posts={latestPosts ?? []}/>
             </View>
           </View>
         )}
